@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/MinjonH/itunes_app#readme",
   "dependencies": {
+    "axios": "0.27.2",
     "body-parser": "1.20.0",
     "chai": "4.3.6",
     "cors": "2.8.5",
