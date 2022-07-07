@@ -93,7 +93,7 @@ class App extends React.Component {
   addFav = (result) => {
     // If an item is already a favourite, it gets removed
     if (
-      this.state.favourites.some((del_fav) => del_fav.trackId === result.trackId)
+      this.state.favourites.some((faves) => faves.trackId === result.trackId)
     ) {
       const trackId = result.trackId.toString();
 
@@ -116,7 +116,7 @@ class App extends React.Component {
     } else {
       // Assign fav to values that will update te favList.json file
       const newFavMedia = {
-        trackID: result.trackID,
+        trackId: result.trackId,
         artistName: result.artistName,
         trackName: result.trackName,
         artworkUrl100: result.artworkUrl100,
@@ -124,18 +124,19 @@ class App extends React.Component {
       };
 
       // HTTP request to update favList.json
-      fetch('/', {
+      fetch("/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
         },
         body: JSON.stringify(newFavMedia),
       })
-        .then((res) => res.json()) // transforms data from the server into favList.json
+        .then((res) => res.json()) // transforms data from the server into json
 
-        //Catches any errors
-        .catch((error) => console.log(error));
-
+        // catches any errors
+        .catch((err) => {
+          console.log(err);
+        });
       //Updates favourite with the new favourite item
       const newFavourites = [...this.state.favourites];
       newFavourites.push(newFavMedia);

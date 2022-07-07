@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const helmet = require('helmet');
 const cors = require('cors');
 const fs = require('fs');
 const favList = require('./favList');
@@ -12,26 +13,26 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// //helmet security policy
-// app.use(
-//     helmet.contentSecurityPolicy({
-//       directives: {
-//         "default-src": ["'self'", "https://itunes.apple.com/"],
-//         "script-src": [
-//           "'self'",
-//           "'sha256-1kri9uKG6Gd9VbixGzyFE/kaQIHihYFdxFKKhgz3b80='",
-//         ],
-//         "object-src": ["'self'"],
-//         "img-src": ["'self'", "https://itunes.apple.com/", "https:"],
-//         "connect-src": ["'self'", "https://itunes.apple.com/"],
-//         "font-src": ["'self'"],
-//         "style-src": [
-//           "'self'",
-//           "'sha256-UTjtaAWWTyzFjRKbltk24jHijlTbP20C1GUYaWPqg7E='",
-//         ],
-//       },
-//     })
-//   );
+//helmet security policy
+app.use(
+    helmet.contentSecurityPolicy({
+      directives: {
+        "default-src": ["'self'", "https://itunes.apple.com/"],
+        "script-src": [
+          "'self'",
+          "'sha256-1kri9uKG6Gd9VbixGzyFE/kaQIHihYFdxFKKhgz3b80='",
+        ],
+        "object-src": ["'self'"],
+        "img-src": ["'self'", "https://itunes.apple.com/", "https:"],
+        "connect-src": ["'self'", "https://itunes.apple.com/"],
+        "font-src": ["'self'"],
+        "style-src": [
+          "'self'",
+          "'sha256-UTjtaAWWTyzFjRKbltk24jHijlTbP20C1GUYaWPqg7E='",
+        ],
+      },
+    })
+  );
   
 //GET function to display all data in favList.json
 app.get('/api', (req, res)=>{
@@ -124,7 +125,7 @@ app.use((err, req, res, next) => {
 
 //Server static assests
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static("frontend/build"));
+    app.use(express.static("client/build"));
   
     app.get("*", (req, res) => {
       res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
