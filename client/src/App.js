@@ -1,13 +1,17 @@
 import React from "react";
 
 // Style sheets
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "./styles/App.css";
+import "./App.css";
 
 // Components
-import SearchITunes from "./components/search"; 
-import DisplayFavourites from "./components/favourites";
-import DisplaySearch from "./components/results";
+import Search from "./components/search"; 
+import Favourites from "./components/favourites";
+import Results from "./components/results";
+
+// Font/icons
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+library.add(fas); // passing all icons in @fortawesome/free-solid-svg-icons
 
 class App extends React.Component {
   constructor(props) {
@@ -19,7 +23,7 @@ class App extends React.Component {
     };
   }
 
-  // GET api, fetches favourites from favmedia.json
+  // GET api, fetches favourites from favList.json
   getFav = () => {
     fetch("/api")
       .then((res) => res.json())
@@ -38,21 +42,21 @@ class App extends React.Component {
       );
   };
 
-  // Onclick search button fetches the itunes api based on search input fields
+  // Search button fetches the itunes api based on search input fields
   itunesSearch = async (e) => {
     e.preventDefault(); // Prevent page reload on form submit
 
     // Get form input values and assign them to term and media
     const term = e.target.term.value.replace(" ", "+").trim().toLowerCase(); // replace space with +
     const media = e.target.media.value;
-    const api_call = await fetch(`itunes/${term},${media}`);     //Making the API call with the term and media input varibles
+    const api_call = await fetch(`https://itunes.apple.com/search?term=${term}&media=${media}&country=za&limit=25`); //Making the API call with the term and media input varibles
 
 
     if (api_call.status !== 200) {
       //check if api_call is not successful -> send error.
       this.setState({
         iTunes: [],
-        issue: "Search failed.",
+        issue: "Search failed",
       });
       return;
     }
@@ -86,7 +90,7 @@ class App extends React.Component {
   };
 
   // Add to favourites.
-  addToFav = (result) => {
+  addFav = (result) => {
     // If an item is already a favourite, it gets removed
     if (
       this.state.favourites.some((del_fav) => del_fav.trackId === result.trackId)
@@ -110,30 +114,28 @@ class App extends React.Component {
       );
       this.setState({ favourites: filteredFavourites });
     } else {
-      // Assign fav to values that will update te favmedia.json file
+      // Assign fav to values that will update te favList.json file
       const newFavMedia = {
         trackID: result.trackID,
         artistName: result.artistName,
         trackName: result.trackName,
         artworkUrl100: result.artworkUrl100,
-        releaseDate: result.releaseDate,
         kind: result.kind,
       };
 
-      // HTTP request to update favmedia.json
-      fetch("/", {
+      // HTTP request to update favList.json
+      fetch('/', {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
         },
         body: JSON.stringify(newFavMedia),
       })
-        .then((res) => res.json()) // transforms data from the server into json
+        .then((res) => res.json()) // transforms data from the server into favList.json
 
-        // catches any errors
-        .catch((err) => {
-          console.log(err);
-        });
+        //Catches any errors
+        .catch((error) => console.log(error));
+
       //Updates favourite with the new favourite item
       const newFavourites = [...this.state.favourites];
       newFavourites.push(newFavMedia);
@@ -142,7 +144,7 @@ class App extends React.Component {
   };
 
   //deletes favourite from list
-  deleteFav = (trackId) => {
+  delFav = (trackId) => {
     const newtrackId = trackId.toString();
 
     fetch(`/${newtrackId}`, {
@@ -155,14 +157,14 @@ class App extends React.Component {
 
       .catch((error) => console.log(error));
 
-    //Updates favurites to remove the deleted item
+    //Removes deleted item from
     const filteredFavourites = this.state.favourites.filter(
       (newFav) => newFav.trackId !== parseInt(newtrackId)
     );
     this.setState({ favourites: filteredFavourites });
   };
 
-  // on load, calls getFav() to fetch data from favmedia.json
+  // onload, calls getFav() to fetch data from favList.json
   componentDidMount = () => {
     this.getFav();
   };
@@ -173,16 +175,16 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <div className="cnter">
-            <SearchITunes itunesSearch={this.itunesSearch} />
-            <DisplaySearch
+            <Search itunesSearch={this.itunesSearch} />
+            <Results
               favourites={this.state.favourites}
               search={this.state.iTunes}
               error={this.state.issue}
-              addToFav={this.addToFav}
+              addFav={this.addFav}
             />
-            <DisplayFavourites
+            <Favourites
               favourites={this.state.favourites}
-              delFav={this.deleteFav}
+              delFav={this.delFav}
             />
           </div>
         </header>

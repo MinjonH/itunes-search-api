@@ -5,8 +5,8 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import {Link} from "react-router-dom";
-import Heart from "https://www.flaticon.com/free-icons/heart";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 // Inline styling
 const favStyle = {
   fontWeight: "bold",
@@ -14,17 +14,17 @@ const favStyle = {
   color: "#ff0063",
 };
 
-const normStyle = {
+const basicStyle = {
   color: "#898276",
 };
 
-export default function DisplaySearch({ error, search, favourites, addToFav }) {
+export default function Results({ error, search, favourites, addFav }) {
   //function changes the colour of the heart if already flagged as a favourite
   function isFav(trackId) {
     if (favourites.some((favourite) => favourite.trackId === trackId)) {
       return favStyle;
     } else {
-      return normStyle;
+      return basicStyle;
     }
   }
 
@@ -33,11 +33,13 @@ export default function DisplaySearch({ error, search, favourites, addToFav }) {
     <Col key={result.trackId.toString()} className="colcard">
       <Card className="card">
         <Card.Header>
-          <Link className="icons" style={isFav(result.trackId)} onClick={() => addToFav(result)}>
-            <Heart />          
-          </Link>
+          <FontAwesomeIcon
+            icon={["fas", "heart"]}
+            className="icons"
+            style={isFav(result.trackId)}
+            onClick={() => addFav(result)}
+          />
         </Card.Header>
-        
         <Card.Img
           className="cardimg"
           variant="top"
@@ -60,7 +62,7 @@ export default function DisplaySearch({ error, search, favourites, addToFav }) {
   return (
     <Container fluid className="card-container">
       {search && <h1>Search Results</h1>}
-      {error && <p className="searcherror">{error}</p>}
+      {error && <p className="searchError">{error}</p>}
 
       <Row className="cardrow" xs={1} md={2} lg={3}>
         {searchCard}

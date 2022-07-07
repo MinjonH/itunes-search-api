@@ -1,10 +1,10 @@
 import React from "react";
 
 //Component to display the search form
-export default function SearchITunes(props) {
+export default function Search(props) {
   return (
     <div className="SearchForm">
-      <h1 className="SearchHeading">Search iTunes for Media</h1>
+      <h1 className="SearchHeading">Search iTunes</h1>
       <form onSubmit={props.itunesSearch}>
         <div className="frmInput">
           <input type="text" name="term" placeholder="Search..."></input>
