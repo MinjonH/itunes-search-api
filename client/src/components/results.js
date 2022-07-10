@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 // Inline styling
 const favStyle = {
@@ -33,8 +33,7 @@ export default function Results({ error, search, favourites, addFav }) {
     <Col key={result.trackId.toString()} className="colcard">
       <Card className="card">
         <Card.Header>
-          <FontAwesomeIcon
-            icon={["fas", "heart"]}
+          <FavoriteIcon
             className="icons"
             style={isFav(result.trackId)}
             onClick={() => addFav(result)}

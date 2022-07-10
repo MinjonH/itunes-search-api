@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 export default function Favourites({ favourites, delFav }) {
   //media maps through favourites array and inputs fields into a card
@@ -13,10 +13,8 @@ export default function Favourites({ favourites, delFav }) {
     <Col key={fav.trackId} className="colcard">
       <Card className="card">
         <Card.Header>
-          <FontAwesomeIcon
-            icon={["fas", "trash-alt"]}
+          <DeleteOutlineIcon
             className="icons"
-            name="trash-bin"
             onClick={() => delFav(fav.trackId)}
           />
         </Card.Header>
