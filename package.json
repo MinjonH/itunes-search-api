@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha",
+    "test": "jest",
     "client-install": "npm install --prefix client",
     "start": "node server.js",
     "server": "nodemon server.js",
@@ -35,7 +35,9 @@
   },
   "devDependencies": {
     "chai": "4.3.6",
+    "jest": "28.1.2",
     "mocha": "10.0.0",
-    "nodemon": "2.0.16"
+    "nodemon": "2.0.16",
+    "react-test-renderer": "18.2.0"
   }
 }

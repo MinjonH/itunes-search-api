@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render all option properties 1`] = `
+<div
+  className="SearchForm"
+>
+  <h1
+    className="SearchHeading"
+  >
+    Search iTunes
+  </h1>
+  <form>
+    <div
+      className="frmInput"
+    >
+      <input
+        name="term"
+        placeholder="Search..."
+        type="text"
+      />
+      <select
+        name="media"
+      >
+        <option
+          value="all"
+        >
+          All
+        </option>
+        <option
+          value="audiobook"
+        >
+          Audio Book
+        </option>
+        <option
+          value="ebook"
+        >
+          e-Book
+        </option>
+        <option
+          value="movie"
+        >
+          Movie
+        </option>
+        <option
+          value="music"
+        >
+          Music
+        </option>
+        <option
+          value="musicVideo"
+        >
+          Music Video
+        </option>
+        <option
+          value="podcast"
+        >
+          Podcast
+        </option>
+        <option
+          value="tvShow"
+        >
+          TV Show
+        </option>
+      </select>
+      <button>
+        Search
+      </button>
+    </div>
+  </form>
+</div>
+`;
