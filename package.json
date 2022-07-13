@@ -6,11 +6,10 @@
   "scripts": {
     "test": "jest",
     "client-install": "npm install --prefix client",
-    "start": "node server.js",
-    "server": "nodemon server.js",
+    "start": "nodemon backend/server",
+    "server": "nodemon backend/server",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -23,7 +22,6 @@
   },
   "homepage": "https://github.com/MinjonH/itunes_app#readme",
   "dependencies": {
-    "concurrently": "7.2.2",
     "cors": "2.8.5",
     "express": "4.18.1",
     "helmet": "5.1.0",
@@ -35,6 +33,7 @@
   },
   "devDependencies": {
     "chai": "4.3.6",
+    "concurrently": "7.2.2",
     "jest": "28.1.2",
     "mocha": "10.0.0",
     "nodemon": "2.0.16",
