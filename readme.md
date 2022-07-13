@@ -1,34 +1,85 @@
-# iTunes search - React and Express app
+# itunes-search-api - React and Express app
 
-App searches for items from the Apple iTunes using the **iTunes Search API** https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/.
+> iTunes Search Api
 
-Search items returned can be added to favourites.
+## Description
 
-The deployed app: https://itunes-search-api.herokuapp.com/
+This app searches for items from the Apple iTunes store using the **iTunes Search API** https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html.
+Items can also be added or removed to a list of favourites.
+
+The deployed app link: https://itunes-search-api.herokuapp.com/
+
+## Security
+
+This app is being protected by Helmet. Below is a snippet of the Helmet security policy:
+
+```javascript
+app.use(
+	helmet.contentSecurityPolicy({
+		directives: {
+			'default-src': ["'self'", 'https://itunes.apple.com/'],
+			'script-src': [
+				"'self'",
+				"'sha256-1kri9uKG6Gd9VbixGzyFE/kaQIHihYFdxFKKhgz3b80='",
+			],
+			'object-src': ["'self'"],
+			'img-src': ["'self'", 'https://itunes.apple.com/', 'https:'],
+			'connect-src': ["'self'", 'https://itunes.apple.com/'],
+			'font-src': ["'self'"],
+			'style-src': [
+				"'self'",
+				"'sha256-UTjtaAWWTyzFjRKbltk24jHijlTbP20C1GUYaWPqg7E='",
+			],
+		},
+	})
+);
+```
 
 ## Installation
-
-Download files and run the following commands:
 
 ```
 # Install backend dependencies
    npm install
 
-# Run Express server only
-   npm run server
-
 # Install frontend dependencies
-   npm install - in the frontend directory
-   npm run frontend-install - in the Express server directory
+   npm run client-install
 
-# Run the frontend React app
-   npm run frontend
+# Run backend Express server only
+   cd backend
+   npm start
 
-# Run frontend and server concurrently
+# Run frontend React app
+   cd client
+   npm start
+
+# Run frontend and backend together
    npm run dev
 
 ```
 
+## Tests
+
+```
+# Run frontend tests
+   cd client
+   npm run test
+
+# Run beckend tests
+   cd backend
+   npm run test
+
+```
+
+## API
+
+The API used is shown below:
+
+```javascript
+`https://itunes.apple.com/search?term=${term}&media=${media}&country=za&limit=25`;
+```
+
+It defines the term and media type depending on the user's input and sets the country to South Africa and the limit to the number of characters that can be typed to 25.
+
 The server runs on `localhost:3001/api`.
 
-The frontend app runs on `localhost:3000`
+The frontend app runs on `localhost:3000`.

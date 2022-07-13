@@ -4,7 +4,7 @@ const path = require('path');
 const helmet = require('helmet');
 const cors = require('cors');
 const fs = require('fs');
-const favList = require('./favList');
+const favList = require('./favList.json');
 
 //CORS middleware enables all CORS requests
 app.use(cors());
@@ -124,19 +124,8 @@ app.use((err, req, res, next) => {
 
 
 //DEPLOYMENT
-
-__dirname = path.resolve();
-
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/client/build")));
-
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
-  );
-} else {
-  app.get("/", (req, res) => {
-    res.send("API is running..");
-  });
+  app.use(express.static("/client/build"));
 }
   
   //Listening on PORT
