@@ -45,7 +45,6 @@ app.use(
    npm run client-install
 
 # Run backend Express server only
-   cd backend
    npm start
 
 # Run frontend React app
@@ -65,7 +64,6 @@ app.use(
    npm run test
 
 # Run beckend tests
-   cd backend
    npm run test
 
 ```
