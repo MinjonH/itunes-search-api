@@ -159,6 +159,7 @@ h1 {
   color: #0f5345;
   position: relative;
   cursor: pointer;
+  size: 1cm;
 }
 
 .icons:hover {
