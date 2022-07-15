@@ -6,11 +6,12 @@
   "scripts": {
     "test": "jest",
     "build": "cd client && npm run build",
-    "start": "nodemon server.js",
-    "server": "concurrently \"npm run server\" \"npm run client\"",
+    "client-install": "cd client && npm install",
+    "start": "node server.js",
+    "server": "nodemon server.js",
     "client": "cd client && npm start",
-    "dev": "node server.js",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "npm run client-install && npm run build"
   },
   "repository": {
     "type": "git",

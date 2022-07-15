@@ -44,15 +44,8 @@ app.use(
 # Install frontend dependencies
    npm run client-install
 
-# Run frontend only
-	cd client
-	npm start
-
-# Run backend only
-	npm run server
-
 # Run frontend and backend
-   npm start
+   npm run dev
 
 ```
 
