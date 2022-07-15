@@ -125,11 +125,14 @@ app.use((err, req, res, next) => {
 
 //DEPLOYMENT
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("/client/build"));
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    req.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
 }
   
   //Listening on PORT
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
+const port = process.env.PORT || 3001;
+app.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
 });
