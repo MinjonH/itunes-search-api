@@ -7,10 +7,10 @@
     "test": "jest",
     "build": "cd client && npm run build",
     "client-install": "cd client && npm install",
-    "start": "node server.js",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "node server",
     "heroku-postbuild": "npm run client-install && npm run build"
   },
   "repository": {
