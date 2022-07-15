@@ -124,11 +124,11 @@ app.use((err, req, res, next) => {
 
 
 //DEPLOYMENT
-
-  app.use(express.static(path.join(__dirname, 'client/build')));
+if(process.env.NODE_ENV === "production")
+  app.use(express.static('client/build'));
   //Handles React routing, retun all requests to React app
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build/index.html'));
+    req.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   })
   
   //Listening on PORT
