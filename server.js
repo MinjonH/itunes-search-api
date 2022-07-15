@@ -7,7 +7,21 @@ const fs = require('fs');
 const favList = require('./favList.json');
 
 //CORS middleware enables all CORS requests
-app.use(cors());
+const whitelist = ['http://localhost:3000', 'http://localhost:3001', 'https://itunes-api-server.herokuapp.com/']
+const corsOptions = {
+  origin: function (origin, callback){
+    console.log("** Origin of request " + origin)
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      console.log("Origin acceptable")
+      callback(null, true)
+    }else{
+      console.log("Origin rejected")
+      callback(new Error("Not allowed by CORS"))
+    }
+  }
+}
+
+app.use(cors(corsOptions));
 
 //Body-parser middleware
 app.use(express.json());
@@ -125,9 +139,11 @@ app.use((err, req, res, next) => {
 
 //DEPLOYMENT
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static('client/build'));
+  //Serves any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+  //Handles React routing, retun all requests to React app
   app.get('*', (req, res) => {
-    req.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   })
 }
   
