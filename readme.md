@@ -7,7 +7,7 @@
 This app searches for items from the Apple iTunes store using the **iTunes Search API** https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html.
 Items can also be added or removed to a list of favourites.
 
-The deployed app link: https://itunes-search-api.herokuapp.com/
+The deployed app link: https://itunes-api-server.herokuapp.com/
 
 ## Security
 
