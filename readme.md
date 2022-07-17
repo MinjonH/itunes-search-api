@@ -37,6 +37,18 @@ app.use(
 
 ## Installation
 
+Before running the frontend, change the start script from:
+
+```json
+"start": "node server",
+```
+
+to:
+
+```json
+"start": "react-scripts start",
+```
+
 ```
 # Install backend dependencies
    npm install
@@ -56,7 +68,7 @@ app.use(
    cd client
    npm run test
 
-# Run beckend tests
+# Run backend tests
    npm run test
 
 ```
